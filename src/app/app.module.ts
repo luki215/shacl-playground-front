@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 
 import 'codemirror/mode/turtle/turtle';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import 'codemirror/mode/turtle/turtle';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    CodemirrorModule
+    CodemirrorModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
