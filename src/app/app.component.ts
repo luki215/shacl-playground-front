@@ -12,8 +12,8 @@ import { map } from 'rxjs/operators';
 export class AppComponent implements OnInit {
   public shapesFile: File;
   public dataFile: File;
-  public textDataFC = new FormControl();
-  public textShapesFC = new FormControl();
+  public textData = '';
+  public textShapes = '';
 
 
   public graph: string;
@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
   setShapesFile(e) {
     this.shapesFile = e.target.files[0];
     const reader = new FileReader();
-    reader.onload = (event: any) => this.textShapesFC.patchValue(event.target.result);
+    reader.onload = (event: any) => this.textShapes = event.target.result;
     reader.onerror = error => console.error(error);
     reader.readAsText(this.shapesFile);
   }
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
   setDataFile(e) {
     this.dataFile = e.target.files[0];
     const reader = new FileReader();
-    reader.onload = (event: any) => this.textDataFC.patchValue(event.target.result);
+    reader.onload = (event: any) => this.textData = event.target.result;
     reader.onerror = error => console.error(error);
     reader.readAsText(this.dataFile);
   }
