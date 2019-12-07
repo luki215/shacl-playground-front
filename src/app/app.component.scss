@@ -1,7 +1,12 @@
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+
 .editors {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  grid-template-rows: 70% 30%;
+  grid-template-rows: 60% 40%;
   grid-column-gap: 10px;
   grid-row-gap: 10px;
   margin: 20px 0px 0;
@@ -21,6 +26,7 @@
     overflow: auto;
     display: flex;
     flex-direction: column;
+    padding-bottom: 0;
 
     mat-card-header {
       display: flex;
@@ -33,6 +39,7 @@
       display: flex;
       flex-direction: column;
     }
+
   }
 
   .divider {
@@ -51,6 +58,93 @@
   display: inline-block;
 }
 
+.results-card {
+  mat-card-content {
+    background: #263238;
+
+    pre {
+      padding: 10px;
+    }
+  }
+
+  mat-card-header {
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  mat-card-title {
+    margin-bottom: 0;
+  }
+}
+
+/*
+*
+*   Layouts
+*/
+
+.layout1 {
+  .data-card {}
+
+  .shapes-card {}
+
+  .results-card {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+}
+
+.layout2 {
+  grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
+
+  .results-card {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+}
+
+.layout3 {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+
+  .results-card {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+}
+
+.layout4 {
+  grid-template-rows: 30% 70%;
+
+  .results-card {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+}
+
+
+.layout5 {
+
+  grid-template-rows: 33% 33% 33%;
+  height: calc(100% - 20px - 13px - 64px);
+
+  .data-card {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+
+  .shapes-card {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+
+  .results-card {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+}
+
+
+
+// mat btns hacks
 
 button.mat-button .mat-icon,
 a.mat-button .mat-icon,
@@ -61,14 +155,12 @@ a.mat-stroked-button .mat-icon {
   font-size: 1.25em;
 }
 
+mat-button-toggle {
+  ::ng-deep .mat-button-toggle-label-content {
+    line-height: 37px;
+  }
 
-.layout1 {
-  .data-card {}
-
-  .shapes-card {}
-
-  .results-card {
-    grid-column-start: 1;
-    grid-column-end: 3;
+  img {
+    width: 24px;
   }
 }

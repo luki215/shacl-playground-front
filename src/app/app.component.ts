@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { HttpClient, HttpRequest, HttpHeaders, HttpEvent, HttpEventType } from '@angular/common/http';
 
@@ -16,6 +16,17 @@ export class AppComponent implements OnInit {
 
   public graph: string;
   public resultsText: string;
+  public resultsAsShacl: boolean;
+
+  public layout = 1;
+
+  @HostListener('document:keydown', ['$event'])
+    handleKeyboardEvent(event: KeyboardEvent) {
+      if(event.code === 'F5') {
+        this.validate();
+      }
+
+    }
 
   constructor(private http: HttpClient) {}
   ngOnInit() {
@@ -53,9 +64,11 @@ export class AppComponent implements OnInit {
       finalize(() => {this.validating = false; })
     ).subscribe((res: any) => {
       console.log(res);
-        this.graph = res.results_graph;
-        this.resultsText = res.results_text;
-        this.validating = true;
+      this.graph = res.results_graph;
+      this.resultsText = res.results_text;
+    }, (err) => {
+      this.graph = 'Unknown error';
+      this.resultsText = 'Unknown error';
     });
 
   }
