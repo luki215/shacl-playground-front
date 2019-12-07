@@ -1,8 +1,30 @@
 <app-editor></app-editor>
 
-<textarea [(ngModel)]="data"></textarea>
-<textarea [(ngModel)]="shapes"></textarea>
+<label>data</label>
+<textarea [formControl]="textDataFC"></textarea>
+<br>
+<label>Shapes</label>
+<textarea [formControl]="textShapesFC"></textarea>
+<br>
 
-
-
+<label>data</label>
+<input type="file" (change)="setDataFile($event)">
+<br>
+<label>Shapes</label>
+<input type="file" (change)="setShapesFile($event)">
+<br>
 <button (click)="validate()">Validate</button>
+
+<pre>
+  {{results_text}}
+</pre>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<pre>
+  {{graph}}
+</pre>
