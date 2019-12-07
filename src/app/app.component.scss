@@ -1,0 +1,74 @@
+.editors {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: 70% 30%;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  margin: 20px 0px 0;
+  width: calc(100% - 0px);
+  height: calc(100% - 20px - 10px - 64px);
+
+  ngx-codemirror {
+    display: block;
+    flex-grow: 1;
+
+  }
+
+
+
+  mat-card {
+    max-width: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+
+    mat-card-header {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    mat-card-content {
+      flex-grow: 1;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .divider {
+    cursor: col-resize;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+
+.d-none {
+  display: none;
+}
+
+.d-inline-block {
+  display: inline-block;
+}
+
+
+button.mat-button .mat-icon,
+a.mat-button .mat-icon,
+a.mat-raised-button .mat-icon,
+a.mat-flat-button .mat-icon,
+a.mat-stroked-button .mat-icon {
+  vertical-align: top;
+  font-size: 1.25em;
+}
+
+
+.layout1 {
+  .data-card {}
+
+  .shapes-card {}
+
+  .results-card {
+    grid-column-start: 1;
+    grid-column-end: 3;
+  }
+}

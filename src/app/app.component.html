@@ -1,38 +1,69 @@
-<label>data</label>
+<mat-toolbar color="primary">
+  <span>Yet another SHACL playground</span>
+</mat-toolbar>
 
-<ngx-codemirror [(ngModel)]="textData" [options]="{
-    lineNumbers: true,
-    theme: 'material',
-    mode: 'turtle'
-  }"></ngx-codemirror>
-<br>
-<label>Shapes</label>
 
-<ngx-codemirror [(ngModel)]="textShapes" [options]="{
-    lineNumbers: true,
-    theme: 'material',
-    mode: 'turtle'
-  }"></ngx-codemirror>
-<br>
 
-<label>data</label>
-<input type="file" (change)="setDataFile($event)">
-<br>
-<label>Shapes</label>
-<input type="file" (change)="setShapesFile($event)">
-<br>
-<button (click)="validate()">Validate</button>
+<div class="editors layout1">
+  <mat-card class="data-card">
+    <mat-card-header>
+      <mat-card-title>Data</mat-card-title>
+      <mat-card-subtitle>in turtle format</mat-card-subtitle>
+      <div>
+        <button mat-stroked-button (click)="dataFileInput.click()">
+          <mat-icon>cloud_upload</mat-icon> File
+        </button>
+        <input #dataFileInput type="file" (change)="setDataFile($event)" class="d-none">
+      </div>
+    </mat-card-header>
+    <mat-card-content mat-card-image>
+      <ngx-codemirror [(ngModel)]="textData" [options]="{
+          lineNumbers: true,
+          theme: 'material',
+          mode: 'turtle'
+        }">
+      </ngx-codemirror>
+    </mat-card-content>
+  </mat-card>
 
-<pre>
-  {{results_text}}
-</pre>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
-<pre>
-  {{graph}}
-</pre>
+
+  <mat-card class="shapes-card">
+    <mat-card-header>
+      <mat-card-title>Shapes</mat-card-title>
+      <mat-card-subtitle>in SHACL format</mat-card-subtitle>
+      <div>
+        <button mat-stroked-button (click)="shapesFileUpload.click()">
+          <mat-icon>cloud_upload</mat-icon> File
+        </button>
+        <input #shapesFileUpload type="file" (change)="setShapesFile($event)" class="d-none">
+      </div>
+    </mat-card-header>
+    <mat-card-content mat-card-image>
+      <ngx-codemirror [(ngModel)]="textShapes" [options]="{
+          lineNumbers: true,
+          theme: 'material',
+          mode: 'turtle'
+        }">
+      </ngx-codemirror>
+    </mat-card-content>
+  </mat-card>
+
+
+  <mat-card class="results-card">
+    <mat-card-header>
+      <mat-card-title>Results</mat-card-title>
+      <button mat-raised-button color="accent" (click)="validate()">
+        <mat-icon *ngIf="resultsText === undefined && !validating">play_arrow</mat-icon>
+        <mat-spinner [diameter]="20" class="d-inline-block" *ngIf="validating">play_arrow</mat-spinner>
+        <mat-icon *ngIf="resultsText !== undefined && !validating">replay</mat-icon>
+        Validate (F5)
+      </button>
+    </mat-card-header>
+    <mat-card-content>
+      <pre>
+      {{resultsText}}
+      </pre>
+    </mat-card-content>
+  </mat-card>
+</div>

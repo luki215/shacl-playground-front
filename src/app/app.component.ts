@@ -3,48 +3,45 @@ import { FormControl } from '@angular/forms';
 import { HttpClient, HttpRequest, HttpHeaders, HttpEvent, HttpEventType } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, finalize } from 'rxjs/operators';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public shapesFile: File;
-  public dataFile: File;
   public textData = '';
   public textShapes = '';
-
+  public validating = false;
 
   public graph: string;
-  public results_text: string;
+  public resultsText: string;
 
   constructor(private http: HttpClient) {}
   ngOnInit() {
   }
 
   setShapesFile(e) {
-    this.shapesFile = e.target.files[0];
     const reader = new FileReader();
     reader.onload = (event: any) => this.textShapes = event.target.result;
     reader.onerror = error => console.error(error);
-    reader.readAsText(this.shapesFile);
+    reader.readAsText(e.target.files[0]);
   }
 
 
   setDataFile(e) {
-    this.dataFile = e.target.files[0];
     const reader = new FileReader();
     reader.onload = (event: any) => this.textData = event.target.result;
     reader.onerror = error => console.error(error);
-    reader.readAsText(this.dataFile);
+    reader.readAsText(e.target.files[0]);
   }
 
 
   validate() {
+    this.validating = true;
     const formData = new FormData();
-    formData.append('shapes_file', this.shapesFile);
-    formData.append('data_file', this.dataFile);
+    formData.append('shapes_file', new File([this.textShapes], 'shapes.txt'));
+    formData.append('data_file', new File([this.textData], 'data.txt'));
 
 
     const req = this.http.post('http://localhost:5000/', formData, {
@@ -53,30 +50,14 @@ export class AppComponent implements OnInit {
     });
 
     req.pipe(
-      // push current upload progress to observable
-      // map((e) => this.getPercentDone(e))
+      finalize(() => {this.validating = false; })
     ).subscribe((res: any) => {
       console.log(res);
-      if (typeof(res) !== 'number') {
         this.graph = res.results_graph;
-        this.results_text = res.results_text;
-      }
+        this.resultsText = res.results_text;
+        this.validating = true;
     });
 
-
-  }
-
-  private getPercentDone(event: HttpEvent<any>) {
-    switch (event.type) {
-      case HttpEventType.Sent:
-        return 0;
-
-      case HttpEventType.UploadProgress:
-        return Math.round((100 * event.loaded) / event.total);
-
-      case HttpEventType.Response:
-        return event.body;
-    }
   }
 
 }
