@@ -1,6 +1,6 @@
 # ShaclEditor
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
+This is semestral project for [Linked data course on VŠE](https://nb.vse.cz/~svatek/rzzw.html).
 
 # Install
 Run `yarn`.
