@@ -4,6 +4,7 @@ import { HttpClient, HttpRequest, HttpHeaders, HttpEvent, HttpEventType } from '
 
 import { Observable } from 'rxjs';
 import { map, finalize } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -55,7 +56,7 @@ export class AppComponent implements OnInit {
     formData.append('data_file', new File([this.textData], 'data.txt'));
 
 
-    const req = this.http.post('http://localhost:5000/', formData);
+    const req = this.http.post(environment.apiURL, formData);
 
     req.pipe(
       finalize(() => {this.validating = false; })
