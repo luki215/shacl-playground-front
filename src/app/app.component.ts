@@ -55,15 +55,11 @@ export class AppComponent implements OnInit {
     formData.append('data_file', new File([this.textData], 'data.txt'));
 
 
-    const req = this.http.post('http://localhost:5000/', formData, {
-      reportProgress: true,
-      headers: new HttpHeaders({ 'ngsw-bypass': 'true' })
-    });
+    const req = this.http.post('http://localhost:5000/', formData);
 
     req.pipe(
       finalize(() => {this.validating = false; })
     ).subscribe((res: any) => {
-      console.log(res);
       this.graph = res.results_graph;
       this.resultsText = res.results_text;
     }, (err) => {
