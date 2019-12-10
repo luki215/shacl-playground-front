@@ -10,11 +10,15 @@ App assumes that the [editor BE](https://github.com/luki215/shacl-playground-bac
 ## Development server
 
 Run `yarn start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Run production version
+```docker run --rm -p 80:80 luki215/shacl-editor-fe```
+
 ## Build
 ```docker build -f Dockerfile-prod -t shacl-editor-fe .```
 
 ## Docker publish
-Is done automatically by publishing new tag
+Is done automatically with publishing a new tag via
 `yarn release:patch` or
 `yarn release:minor` or
 `yarn release:major`
